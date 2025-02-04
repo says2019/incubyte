@@ -20,7 +20,7 @@ class StringCal:
     #Constructor create the instance variable
     def __init__(self,string):
         self.string = string
-    # method can take up string, new lines between numbers, separated by commas, and will return their sum and negative number will throw an exception
+    # method can take up string, new lines between numbers, separated by commas, and will return their sum and negative number will throw an exceptions
     def add(self):
         negative_value = []
         separate = self.string.replace("\\n","--")
