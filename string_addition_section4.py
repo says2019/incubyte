@@ -1,4 +1,3 @@
-import re
 
 """
 String Calculator
