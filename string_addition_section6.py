@@ -16,6 +16,10 @@ Calling Add with a negative number will throw an exception “negatives not allo
 if there are multiple negatives, show all of them in the exception message.
 
 Numbers bigger than 1000 should be ignored, so adding 2 +
+
+Delimiters can be of any length with the following format: “//[delimiter]\n”
+
+Allow multiple delimiters like this: “//[delim1][delim2]\n”
 """
 
 class StringCal:
@@ -28,10 +32,18 @@ class StringCal:
         separate = self.string.replace("\\n","--")
         separate = separate.replace("//", "")
         separate = separate.replace(";", "")
-        separate = separate.split(",")
+
+        if "," in separate:
+            separate = separate.split(",")
+        else :
+            separate = [int(s) for s in separate if s.isdigit()]
+
+
         sum_total = 0
+
         for i in separate:
-            i = i.split("--")[0]
+            if isinstance(i,str):
+                i = i.split("--")[0]
 
             if int(i) <= 0:
                 negative_value.append(int(i))
@@ -74,5 +86,8 @@ print(num.add())
     Output : there are multiple negatives [-1, -2, -4, -9]
     Input : Enter comma separated numbers: 1000,2,3,20000
     Output: 1007
-
+    Input : Enter comma separated numbers: //[***]\n1***2***3
+    Output: 6
+    Input : Enter comma separated numbers: //[*][%]\n1*2%3
+    Output: 6
 """
