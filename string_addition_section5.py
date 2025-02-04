@@ -11,6 +11,9 @@ Allow the Add method to handle an unknown amount of numbers
 Allow the Add method to handle new lines between numbers (instead of commas).
 
 Allow the Add method to handle different delimiters
+
+Calling Add with a negative number will throw an exception “negatives not allowed” - and the negative that was passed.
+if there are multiple negatives, show all of them in the exception message.
 """
 
 class StringCal:
@@ -19,14 +22,24 @@ class StringCal:
         self.string = string
     # method can take up string, new lines between numbers, separated by commas, and will return their sum
     def add(self):
-        separate = self.string.replace("\\n","-")
+        negative_value = []
+        separate = self.string.replace("\\n","--")
         separate = separate.replace("//", "")
         separate = separate.replace(";", "")
         separate = separate.split(",")
         sum_total = 0
         for i in separate:
-            i = i.split("-")[0]
-            sum_total = sum_total + int(i)
+            i = i.split("--")[0]
+
+            if int(i) <= 0:
+                negative_value.append(int(i))
+            else :
+                sum_total = sum_total + int(i)
+        if len(negative_value) > 0:
+            if len(negative_value) == 1:
+                sum_total = "negatives not allowed"
+            else:
+                sum_total = "there are multiple negatives {}".format(negative_value)
         return sum_total
 
 #Enter the input
@@ -49,4 +62,9 @@ print(num.add())
     Output : 136
     Input : Enter comma separated numbers: 1//\n2;,2//\n3;,3
     Output : 6
+    Input : Enter comma separated numbers: -1,2,3,4
+    Output : negatives not allowed
+    Input : Enter comma separated numbers: -1,-2,3,-4,-9//\n34;,10\n,4
+    Output : there are multiple negatives [-1, -2, -4, -9]
+
 """
